@@ -5,6 +5,7 @@
   "scripts": {
     "dev:frontend": "pnpm --filter frontend dev",
     "dev:backend": "pnpm --filter backend start:dev",
+    "debug:backend": "pnpm --filter backend start:debug",
     "build": "pnpm run build -r",
     "test": "pnpm run test -r"
   }
