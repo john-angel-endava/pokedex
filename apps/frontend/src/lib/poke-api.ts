@@ -13,9 +13,3 @@ export async function fetchPokemonList({
   } 
   return res.json() as Promise<PokemonList>;
 }
-
-// export async function fetchPokemonByName(name: string, init?: RequestInit) {
-//   const res = await fetch(`${BASE}/pokemon/${name}`, { ...init, cache: 'force-cache', next: { revalidate: 3600 } });
-//   if (!res.ok) throw new Error(`Pokemon "${name}" not found`);
-//   return res.json() as Promise<import('@/types/pokemon').PokemonDetails>;
-// }
