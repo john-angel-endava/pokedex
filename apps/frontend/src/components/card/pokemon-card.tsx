@@ -5,8 +5,8 @@ import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
 import Link from 'next/link';
 import Image from 'next/image';
-import { PokemonType } from '@/types/pokemon-types';
 import styles from "./card.module.css";
+import { PokemonType } from '@/types/pokemon-types';
 
 type CardProps = { name: string; sprites?: {front_default: string}; types: PokemonType[] };
 
