@@ -1,65 +1,94 @@
-import Image from "next/image";
+'use client';
+import React, { useEffect, useState } from "react";
+import { CircularProgress, Grid, Pagination, PaginationItem, Stack } from "@mui/material";
 import styles from "./page.module.css";
+import { fetchPokemonList } from "@/lib/poke-api";
+import { PokemonList } from "@/types/pokemon-types";
+import PokemonCard from "@/components/card/pokemon-card";
 
 export default function Home() {
+  const [pokemonList, setPokemonList] = useState<PokemonList>({ count: 0, next: null, previous: null, pokemons: [] });
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const colorTextDark='#FFFFFF';  
+  const colorTextLight= '#000000';
+
+  const handlePageChange = async (event: React.ChangeEvent<unknown>, page: number) => {
+    event.preventDefault();
+    const limit = 12;
+    const offset = (page - 1) * limit;
+    setIsLoading(true);
+    try {
+      console.log(`Fetching Pokémon list for page ${page} with offset ${offset} and limit ${limit}`);
+      const list = await fetchPokemonList({ limit, offset });
+      console.log("Fetched Pokémon list:", list);
+      setPokemonList(list);
+      setIsLoading(false);
+      setPage(page);
+    } catch (error) {
+      console.error(`Error fetching Pokémon list for page ${page}:`, error);
+    }
+  };
+
+   useEffect(() => {
+    async function fetchData() {
+      try {
+        const list = await fetchPokemonList({ limit: 12, offset: 0 });
+        console.log("Fetched Pokémon list:", list);
+        setPokemonList(list);
+        setIsLoading(false);
+        if(pageCount === 0) setPageCount(Math.ceil(list.count / 12));
+      } catch (error) {
+        console.error("Error fetching Pokémon list:", error);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+        <Stack direction={"column"} spacing={2} alignItems={"center"}>
+          <h1>Pokédex</h1>          
+          {isLoading ? <CircularProgress size="120px" />:
+          (
+            <>
+              <Grid container spacing={2}>
+                {pokemonList.pokemons.map((pokemon) => (
+                  <Grid size={4} key={pokemon.name}>
+                    <PokemonCard {...pokemon} />
+                  </Grid>
+                ))}
+              </Grid>
+              <Stack spacing={2}>
+                <Pagination
+                  count={pageCount}
+                  color={"secondary"}
+                  renderItem={(item) => (
+                    <PaginationItem
+                      component="a"
+                      {...item}
+                      sx={{
+                        "@media (prefers-color-scheme: light)": {
+                          color: colorTextLight,
+                        },
+                        "@media (prefers-color-scheme: dark)": {
+                          color: colorTextDark,
+                        },
+                      }}
+                    />
+                  )}
+                  onChange={handlePageChange}
+                  page={page}
+                  showFirstButton
+                  showLastButton
+                  disabled={isLoading}
+                />
+              </Stack>
+            </>
+          )}
+        </Stack>
       </main>
     </div>
   );
