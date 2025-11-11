@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from "./card.module.css";
 import { PokemonSprites, PokemonType } from '@/types/data-types';
+import FavoriteButton from '../favorites/favorite-button';
 
 interface PokemonCardProps {
   name: string;
@@ -15,9 +16,10 @@ interface PokemonCardProps {
 }
 
 export default function PokemonCard({ name, sprites, types }: PokemonCardProps) {
-  return (
-    <Link href={`/pokemon/${name}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block', height: '100%' }}>
+  return (    
+      <Link href={`/pokemon/${name}`} style={{ textDecoration: 'none', color: 'black', display: 'block', height: '100%' }}>
       <Card>
+        <FavoriteButton name={name} />
         <CardContent className={styles.card} style={{ textAlign: 'center' }}>
               <h3 style={{ textTransform: 'capitalize' }}>{name}</h3>
               {sprites?.front_default && (
@@ -38,6 +40,6 @@ export default function PokemonCard({ name, sprites, types }: PokemonCardProps) 
               </Stack>
         </CardContent>
       </Card>
-    </Link>
+    </Link>  
   );
 }
