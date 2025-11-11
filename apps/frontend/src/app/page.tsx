@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { CircularProgress, Grid, Pagination, PaginationItem, Stack } from "@mui/material";
 import styles from "./page.module.css";
 import { fetchPokemonList } from "@/lib/poke-api";
-import { PokemonList } from "@/types/data-types";
+import { PokemonDetail, PokemonList } from "@/types/data-types";
 import PokemonCard from "@/components/card/pokemon-card";
+import SearchInput from "@/components/search/search-input";
 
 export default function Home() {
   const [pokemonList, setPokemonList] = useState<PokemonList>({ count: 0, next: null, previous: null, pokemons: [] });
+  const [pokemons, setPokemons] = useState<PokemonDetail[]>([]);
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,8 +23,8 @@ export default function Home() {
     setIsLoading(true);
     try {      
       const list = await fetchPokemonList({ limit, offset });
-      console.log("Fetched Pokémon list:", list);
       setPokemonList(list);
+      setPokemons(list?.pokemons);
       setIsLoading(false);
       setPage(page);
     } catch (error) {
@@ -30,14 +32,24 @@ export default function Home() {
     }
   };
 
+  const handleInputChange = (value: string) => {
+    setPokemons(
+      pokemonList.pokemons.filter((pokemon) =>
+        pokemon.name.toLowerCase().includes(value.toLowerCase())
+      )
+    );
+  }
+
    useEffect(() => {
     async function fetchData() {
       try {
-        const list = await fetchPokemonList({ limit: 12, offset: 0 });
-        console.log("Fetched Pokémon list:", list);
+        const list = await fetchPokemonList({ limit: 12, offset: 0 });      
         setPokemonList(list);
+        setPokemons(list?.pokemons);
         setIsLoading(false);
-        if(pageCount === 0) setPageCount(Math.ceil(list.count / 12));
+        if(pageCount === 0){
+          setPageCount(Math.ceil(list.count / 12));
+        } 
       } catch (error) {
         console.error("Error fetching Pokémon list:", error);
       }
@@ -61,11 +73,14 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Stack direction={"column"} spacing={2} alignItems={"center"}>
+        <Stack direction={"column"} spacing={2} alignItems={"center"} sx={{ width: '100%' }}>
           <h1>Pokédex</h1>
+          <SearchInput            
+            onDebouncedChange={(value) => handleInputChange(value)}
+          />
           <>
-            <Grid container spacing={2}>
-              {pokemonList.pokemons?.map((pokemon) => (
+            <Grid container spacing={2} sx={{ width: '100%'}}>
+              {pokemons?.map((pokemon) => (
                 <Grid size={4} key={pokemon.name}>
                   <PokemonCard {...pokemon} />
                 </Grid>

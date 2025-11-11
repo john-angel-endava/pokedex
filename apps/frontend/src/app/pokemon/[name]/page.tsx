@@ -16,19 +16,18 @@ export default function PokemonDetailsPage() {
     const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);
 
     useEffect(() => {
-        async function fetchData() {
+      async function fetchData() {
         try {
-            if (!name) {
-                return;
-            }
-            const result = await fetchPokemonByName(name);
-            console.log(`Fetched Pokémon ${name}:`, result);
-            setPokemon(result);
+          if (!name) {
+            return;
+          }
+          const result = await fetchPokemonByName(name);
+          setPokemon(result);
         } catch (error) {
-            console.error(`Error fetching Pokémon ${name}:`, error);
+          console.error(`Error fetching Pokémon ${name}:`, error);
         }
-        }
-        fetchData();
+      }
+      fetchData();
     }, [name]);
 
     if(!pokemon) {

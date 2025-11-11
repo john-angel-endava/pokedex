@@ -103,7 +103,8 @@ describe('PokemonDetailsPage', () => {
     data.stats.forEach(s => {
       expect(screen.getByText(String(s.base_stat))).toBeInTheDocument();
     });
-    expect(fetchPokemonByNameMock).toHaveBeenCalledWith('bulbasaur');
+    
+    expect(fetchPokemonByNameMock).toHaveBeenCalledWith('bulbasaur');    
   });
 
 });
