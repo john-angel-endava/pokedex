@@ -1,0 +1,79 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PokemonStatsPage > matches snapshot 1`] = `
+<div>
+  <div
+    class="MuiStack-root css-1g4d36v-MuiStack-root"
+  >
+    <h6
+      class="MuiTypography-root MuiTypography-subtitle1 css-1wdzs8i-MuiTypography-root"
+    >
+      Stats:
+    </h6>
+    <div
+      class="MuiStack-root css-pl8gqh-MuiStack-root"
+    >
+      <div
+        class="MuiStack-root css-aha7cr-MuiStack-root"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+          style="text-transform: capitalize;"
+        >
+          hp
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+        >
+          45
+        </p>
+      </div>
+      <div
+        class="MuiStack-root css-aha7cr-MuiStack-root"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+          style="text-transform: capitalize;"
+        >
+          attack
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+        >
+          49
+        </p>
+      </div>
+      <div
+        class="MuiStack-root css-aha7cr-MuiStack-root"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+          style="text-transform: capitalize;"
+        >
+          special-attack
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+        >
+          65
+        </p>
+      </div>
+      <div
+        class="MuiStack-root css-aha7cr-MuiStack-root"
+      >
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+          style="text-transform: capitalize;"
+        >
+          speed
+        </p>
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+        >
+          999
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

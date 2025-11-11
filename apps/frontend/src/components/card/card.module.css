@@ -3,7 +3,7 @@
 .card {
   background-color: var(--color-bg-card-dark);
   color: var(--color-text-dark);
-}
+} 
 
 @media (prefers-color-scheme: dark) {  
   .card {

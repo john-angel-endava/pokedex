@@ -1,0 +1,20 @@
+@import "../../../app/globals.css";
+.detail {
+  min-height: 100vh;
+  padding: 10% 10%;
+  background-color: var(--color-bg-page-dark);
+}
+
+@media (prefers-color-scheme: dark) {  
+  .detail {
+    background-color: var(--color-bg-page-dark);
+    color: var(--color-text-dark);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .detail {
+    background-color: var(--color-bg-page-light);
+    color: var(--color-text-light);    
+  }
+}
