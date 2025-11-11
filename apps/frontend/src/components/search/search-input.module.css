@@ -1,0 +1,22 @@
+@import '../../app/globals.css';
+
+.search {
+    background-color: var(--color-bg-search-dark);
+    color: var(--color-text-dark);
+}
+
+@media (prefers-color-scheme: dark) {  
+  .search {
+    background-color: var(--color-bg-search-dark);
+    color: var(--color-text-dark);
+  } 
+}
+
+@media (prefers-color-scheme: light) { 
+  .search {
+    background-color: var(--color-bg-search-light);
+    color: var(--color-text-light);
+  }
+}
+
+

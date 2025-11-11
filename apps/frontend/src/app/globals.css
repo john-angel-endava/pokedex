@@ -1,9 +1,11 @@
 :root {
   --color-bg-page-dark: #0A0A21; /*Monochromatic based of GBG logo*/
   --color-bg-card-dark: #271E2D; /*Background of Accessibility Statement https://www.gbg.com/en/accessibility-statement/*/
-  --color-text-dark: #EBEBEB; /*#FFFFFF;*/
+  --color-text-dark: #EBEBEB;
+  --color-bg-search-dark: #271E2D;
   --color-bg-page-light: #EBEBEB;
   --color-bg-card-light: #E6E6E6;
+  --color-bg-search-light: #E6E6E6;
   --color-text-light: #0A0A21;
 }
 
