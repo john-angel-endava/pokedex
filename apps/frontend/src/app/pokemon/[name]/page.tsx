@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import { CircularProgress, Typography, Grid, Card, CardContent } from '@mui/material';
+import { CircularProgress, Typography, Grid, Card, CardContent, Stack } from '@mui/material';
 import cardStyles from '../../../components/card/card.module.css';
 import styles from './detail.module.css';
 import { fetchPokemonByName} from '../../../lib/poke-api';
@@ -10,6 +10,7 @@ import PokemonSpritePage from './sprite';
 import PokemonTypesPage from './types';
 import PokemonStatsPage from './stats';
 import PokemonAbilitiesPage from './abilities';
+import FavoriteButton from '@/components/favorites/favorite-button';
 
 export default function PokemonDetailsPage() { 
     const { name } = useParams() as { name: string };
@@ -48,9 +49,12 @@ export default function PokemonDetailsPage() {
                 </Grid>
                 <Grid size={8} container>
                   <Grid size={12}>
-                    <h1 style={{ textTransform: "capitalize" }}>
-                      {pokemon?.name}
-                    </h1>
+                    <Stack direction={"row"}>
+                      <h1 style={{ textTransform: "capitalize" }}>
+                        {pokemon?.name}
+                      </h1>
+                      <FavoriteButton name={pokemon.name} />
+                    </Stack>                    
                   </Grid>
                   <Grid size={12}>
                     <PokemonTypesPage types={pokemon.types} />                    

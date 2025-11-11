@@ -7,7 +7,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import styles from "./favorite-button.module.css";
 import Stack from '@mui/material/Stack';
-import { useFavoritesStore } from '@/store/useFavoritesStore';
+import { useFavoritesStore } from '../../store/useFavoritesStore';
 
 interface FavoriteButtonProps {
   name: string;
