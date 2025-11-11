@@ -66,6 +66,12 @@ export class PokemonService {
       weight: data.weight,
       sprites: {
         front_default: data.sprites?.front_default ?? null,
+        other: {
+          'official-artwork': {
+            front_default:
+              data.sprites?.other?.['official-artwork']?.front_default ?? null,
+          },
+        },
       },
       stats: data.stats,
       types: data.types,

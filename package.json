@@ -8,6 +8,7 @@
     "debug:backend": "pnpm --filter backend start:debug",
     "build": "pnpm run build -r",
     "test": "pnpm run test -r",
-    "test:backend": "pnpm --filter backend test:watch"
+    "test:backend": "pnpm --filter backend test:watch",
+    "test:frontend": "pnpm --filter frontend test"
   }
 }

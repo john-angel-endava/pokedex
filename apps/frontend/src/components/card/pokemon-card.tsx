@@ -6,11 +6,15 @@ import Chip from '@mui/material/Chip';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from "./card.module.css";
-import { PokemonType } from '@/types/pokemon-types';
+import { PokemonSprites, PokemonType } from '@/types/data-types';
 
-type CardProps = { name: string; sprites?: {front_default: string}; types: PokemonType[] };
+interface PokemonCardProps {
+  name: string;
+  sprites?: PokemonSprites;
+  types: PokemonType[];
+}
 
-export default function PokemonCard({ name, sprites, types }: CardProps) {
+export default function PokemonCard({ name, sprites, types }: PokemonCardProps) {
   return (
     <Link href={`/pokemon/${name}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block', height: '100%' }}>
       <Card>
@@ -18,7 +22,7 @@ export default function PokemonCard({ name, sprites, types }: CardProps) {
               <h3 style={{ textTransform: 'capitalize' }}>{name}</h3>
               {sprites?.front_default && (
               <Image
-                src={sprites.front_default}
+                src={sprites?.front_default}
                 alt={name}
                 width={120}
                 height={120}

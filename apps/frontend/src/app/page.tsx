@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { CircularProgress, Grid, Pagination, PaginationItem, Stack } from "@mui/material";
 import styles from "./page.module.css";
 import { fetchPokemonList } from "@/lib/poke-api";
-import { PokemonList } from "@/types/pokemon-types";
+import { PokemonList } from "@/types/data-types";
 import PokemonCard from "@/components/card/pokemon-card";
 
 export default function Home() {
@@ -19,8 +19,7 @@ export default function Home() {
     const limit = 12;
     const offset = (page - 1) * limit;
     setIsLoading(true);
-    try {
-      console.log(`Fetching Pokémon list for page ${page} with offset ${offset} and limit ${limit}`);
+    try {      
       const list = await fetchPokemonList({ limit, offset });
       console.log("Fetched Pokémon list:", list);
       setPokemonList(list);
@@ -46,48 +45,58 @@ export default function Home() {
     fetchData();
   }, []);
 
+  if(isLoading) {
+    return (
+      <div className={styles.page}>
+        <main className={styles.main}>
+          <Stack direction={"column"} spacing={2} alignItems={"center"}>
+            <h1>Pokédex</h1>          
+            <CircularProgress size="120px" />
+          </Stack>
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <Stack direction={"column"} spacing={2} alignItems={"center"}>
-          <h1>Pokédex</h1>          
-          {isLoading ? <CircularProgress size="120px" />:
-          (
-            <>
-              <Grid container spacing={2}>
-                {pokemonList.pokemons.map((pokemon) => (
-                  <Grid size={4} key={pokemon.name}>
-                    <PokemonCard {...pokemon} />
-                  </Grid>
-                ))}
-              </Grid>
-              <Stack spacing={2}>
-                <Pagination
-                  count={pageCount}
-                  color={"secondary"}
-                  renderItem={(item) => (
-                    <PaginationItem
-                      component="a"
-                      {...item}
-                      sx={{
-                        "@media (prefers-color-scheme: light)": {
-                          color: colorTextLight,
-                        },
-                        "@media (prefers-color-scheme: dark)": {
-                          color: colorTextDark,
-                        },
-                      }}
-                    />
-                  )}
-                  onChange={handlePageChange}
-                  page={page}
-                  showFirstButton
-                  showLastButton
-                  disabled={isLoading}
-                />
-              </Stack>
-            </>
-          )}
+          <h1>Pokédex</h1>
+          <>
+            <Grid container spacing={2}>
+              {pokemonList.pokemons?.map((pokemon) => (
+                <Grid size={4} key={pokemon.name}>
+                  <PokemonCard {...pokemon} />
+                </Grid>
+              ))}
+            </Grid>
+            <Stack spacing={2}>
+              <Pagination
+                count={pageCount}
+                color={"secondary"}
+                renderItem={(item) => (
+                  <PaginationItem
+                    component="a"
+                    {...item}
+                    sx={{
+                      "@media (prefers-color-scheme: light)": {
+                        color: colorTextLight,
+                      },
+                      "@media (prefers-color-scheme: dark)": {
+                        color: colorTextDark,
+                      },
+                    }}
+                  />
+                )}
+                onChange={handlePageChange}
+                page={page}
+                showFirstButton
+                showLastButton
+                disabled={isLoading}
+              />
+            </Stack>
+          </>
         </Stack>
       </main>
     </div>

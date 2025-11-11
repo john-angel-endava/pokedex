@@ -8,7 +8,6 @@
   background-color: var(--color-bg-page-dark);
   color: var(--color-text-dark);
 }
-
 .main {
   display: flex;
   min-height: 100vh;
@@ -24,7 +23,6 @@
   background-color: var(--color-bg-page-dark);
   color: var(--color-text-dark);
 }
-
 
 @media (prefers-color-scheme: dark) {  
   .page {

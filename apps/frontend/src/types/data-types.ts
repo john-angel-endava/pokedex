@@ -3,15 +3,30 @@ type PokemonNamedAPIResource = {
   url: string;
 };
 
-export type PokemonType = {
-  slot: number;
-  type: PokemonNamedAPIResource;
-};
-
-type PokemonAbility = {
+export type PokemonAbility = {
   is_hidden: boolean;
   slot: number;
   ability: PokemonNamedAPIResource;
+};
+
+export type PokemonSprites = {
+  front_default: string | null;
+  other: {
+    'official-artwork': {
+      front_default: string | null;
+    };
+  }
+};
+
+export type PokemonStat = {
+  base_stat: number;
+  effort: number;
+  stat: PokemonNamedAPIResource;
+};
+
+export type PokemonType = {
+  slot: number;
+  type: PokemonNamedAPIResource;
 };
 
 export type PokemonDetail = {
@@ -20,8 +35,8 @@ export type PokemonDetail = {
   name: string;
   height: number; // decimeters
   weight: number; // hectograms
-  sprites: { front_default: string };
-  stats: { stat: PokemonNamedAPIResource; effort: number; base_stat: number }[];
+  sprites: PokemonSprites;
+  stats: PokemonStat[];
   types: PokemonType[];
 };
 
