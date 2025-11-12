@@ -84,8 +84,15 @@ export default function Home() {
             <Stack sx={{ flex: 1 }} />
             <SearchInput onDebouncedChange={(value) => handleInputChange(value)} />
             <Stack sx={{ flex: 1, alignItems: 'flex-end' }}>
-              <Link href={`/favorites`} sx={{ textDecoration: 'none', color: 'white', height: '100%' }}>
-                Favorites
+              <Link href={`/favorites`} sx={{
+                textDecoration: 'none',
+                "@media (prefers-color-scheme: light)": {
+                  color: colorTextLight,
+                },
+                "@media (prefers-color-scheme: dark)": {
+                  color: colorTextDark,
+                }}}>
+                    Favorites
               </Link>
             </Stack>
           </Stack>
