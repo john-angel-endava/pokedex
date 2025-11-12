@@ -1,0 +1,17 @@
+@import "../../app/globals.css";
+
+.cardContainer {
+  background-color: var(--color-bg-card-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+    .cardContainer {
+        background-color: var(--color-bg-card-dark);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .cardContainer {
+        background-color: var(--color-bg-card-light);
+    }
+}

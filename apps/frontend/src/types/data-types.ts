@@ -53,3 +53,9 @@ export type PokemonPagination = {
   previous: string | null;
   results: PokemonNamedAPIResource[];
 };
+
+export type PokemonFavorites = {
+    name: string;
+    sprites: PokemonSprites;
+    types: PokemonType[];  
+}

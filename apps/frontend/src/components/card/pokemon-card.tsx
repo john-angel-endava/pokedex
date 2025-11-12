@@ -6,24 +6,24 @@ import Chip from '@mui/material/Chip';
 import Link from 'next/link';
 import Image from 'next/image';
 import styles from "./card.module.css";
-import { PokemonSprites, PokemonType } from '@/types/data-types';
+import { PokemonFavorites } from '@/types/data-types';
+import FavoriteButton from '../favorites/favorite-button';
 
 interface PokemonCardProps {
-  name: string;
-  sprites?: PokemonSprites;
-  types: PokemonType[];
+  pokemon: PokemonFavorites;
 }
 
-export default function PokemonCard({ name, sprites, types }: PokemonCardProps) {
-  return (
-    <Link href={`/pokemon/${name}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block', height: '100%' }}>
+export default function PokemonCard({ pokemon }: PokemonCardProps) {
+  return (    
+      <Link href={`/pokemon/${pokemon?.name}`} style={{ textDecoration: 'none', color: 'black', display: 'block', height: '100%' }}>
       <Card>
+        <FavoriteButton pokemon={pokemon} />
         <CardContent className={styles.card} style={{ textAlign: 'center' }}>
-              <h3 style={{ textTransform: 'capitalize' }}>{name}</h3>
-              {sprites?.front_default && (
+              <h3 style={{ textTransform: 'capitalize' }}>{pokemon?.name}</h3>
+              {pokemon?.sprites?.front_default && (
               <Image
-                src={sprites?.front_default}
-                alt={name}
+                src={pokemon?.sprites?.front_default}
+                alt={pokemon?.name}
                 width={120}
                 height={120}
                 style={{ marginBottom: '1rem' }}
@@ -31,13 +31,13 @@ export default function PokemonCard({ name, sprites, types }: PokemonCardProps) 
                  )}
               <Stack direction="row" spacing={1} justifyContent="center">
                 {
-                  types.map((typeInfo, index) => (
+                  pokemon?.types.map((typeInfo, index) => (
                     <Chip key={typeInfo.type.name} label={typeInfo.type.name} color={index === 0 ? 'primary' : 'secondary'} />
                   ))
                 }
               </Stack>
         </CardContent>
       </Card>
-    </Link>
+    </Link>  
   );
 }
