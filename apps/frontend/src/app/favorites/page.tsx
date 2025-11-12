@@ -9,11 +9,10 @@ import {
 } from "@mui/material";
 import styles from "../page.module.css";
 import { PokemonFavorites } from "@/types/data-types";
+import { ITEMS_PER_PAGE } from "@/lib/constants";
 import PokemonCard from "../../components/card/pokemon-card";
 import SearchInput from "../../components/search/search-input";
 import { useFavoritesStore } from "../../store/useFavoritesStore";
-
-const ITEMS_PER_PAGE = 12;
 
 export default function Favorites() {
   const favorites = useFavoritesStore((state) => state.favorites);
@@ -22,7 +21,7 @@ export default function Favorites() {
   const [pokemons, setPokemons] = useState<PokemonFavorites[]>(
     favorites.slice(0, ITEMS_PER_PAGE)
   );
-  const [pageCount, setPageCount] = useState(
+  const [pageCount] = useState(
     Math.ceil(favorites.length / ITEMS_PER_PAGE)
   );
   const [page, setPage] = useState(1);

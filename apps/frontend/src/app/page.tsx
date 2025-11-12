@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { CircularProgress, Grid, Link, Pagination, PaginationItem, Stack } from "@mui/material";
 import styles from "./page.module.css";
 import { fetchPokemonList } from "@/lib/poke-api";
+import { ITEMS_PER_PAGE } from "@/lib/constants";
 import { PokemonDetail, PokemonList } from "@/types/data-types";
 import PokemonCard from "@/components/card/pokemon-card";
 import SearchInput from "@/components/search/search-input";
@@ -15,14 +16,13 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const colorTextDark='#FFFFFF';  
   const colorTextLight= '#000000';
-
+  
   const handlePageChange = async (event: React.ChangeEvent<unknown>, page: number) => {
     event.preventDefault();
-    const limit = 12;
-    const offset = (page - 1) * limit;
+    const offset = (page - 1) * ITEMS_PER_PAGE;
     setIsLoading(true);
     try {      
-      const list = await fetchPokemonList({ limit, offset });
+      const list = await fetchPokemonList({ limit: ITEMS_PER_PAGE, offset });
       setPokemonList(list);
       setPokemons(list?.pokemons);
       setIsLoading(false);
@@ -43,12 +43,12 @@ export default function Home() {
    useEffect(() => {
     async function fetchData() {
       try {
-        const list = await fetchPokemonList({ limit: 12, offset: 0 });      
+        const list = await fetchPokemonList({ limit: ITEMS_PER_PAGE, offset: 0 });      
         setPokemonList(list);
         setPokemons(list?.pokemons);
         setIsLoading(false);
         if(pageCount === 0){
-          setPageCount(Math.ceil(list.count / 12));
+          setPageCount(Math.ceil(list.count / ITEMS_PER_PAGE));
         } 
       } catch (error) {
         console.error("Error fetching Pokémon list:", error);
