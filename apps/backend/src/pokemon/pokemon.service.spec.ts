@@ -33,7 +33,14 @@ describe('PokemonService', () => {
         ],
         height: 4,
         weight: 60,
-        sprites: { front_default: 'sprite-url' },
+        sprites: {
+          front_default: 'sprite-url',
+          other: {
+            'official-artwork': {
+              front_default: 'official-artwork-url',
+            },
+          },
+        },
         stats: [
           { stat: { name: 'speed', url: 'x' }, effort: 0, base_stat: 90 },
         ],

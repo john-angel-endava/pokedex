@@ -8,9 +8,12 @@
     "debug:backend": "pnpm --filter backend start:debug",
     "build": "pnpm run build -r",
     "test": "pnpm run test -r",
-    "test:backend": "pnpm --filter backend test:watch",
+    "test:backend": "pnpm --filter backend test",
+    "test:backend:watch": "pnpm --filter backend test:watch",
+    "test:backend:cov": "pnpm --filter backend test:cov",
     "test:frontend": "pnpm --filter frontend test",
     "test:frontend:watch": "pnpm --filter frontend test:watch",
+    "test:frontend:cov": "pnpm --filter frontend test:coverage",
     "storybook": "pnpm --filter frontend storybook"
   }
 }
