@@ -1,33 +1,48 @@
 'use client';
+import { PokemonFavorites } from '@/types/data-types';
 import { create } from 'zustand';
-
-type FavoritesInfo = {
-    name: string;    
-}
+import { persist } from 'zustand/middleware';
 
 interface FavoritesState {
-    favorites: FavoritesInfo[];
-    toggle: (name: string) => void;
+    favorites: PokemonFavorites[];
+    toggle: (pokemon: PokemonFavorites) => void; 
     isFavorite: (name: string) => boolean;
+    _hasHydrated: boolean;
 }
 
-export const useFavoritesStore = create<FavoritesState>()((set, get) => ({    
-    favorites: [],
-    toggle: (name: string) => {
+export const useFavoritesStore = create<FavoritesState>()(
+  persist<FavoritesState>(
+    (set, get) => ({
+      favorites: [],
+      toggle: (pokemon: PokemonFavorites) => {
         const currentFavorites = get().favorites;
-        const index = currentFavorites.findIndex(fav => fav.name === name);
-        const updatedFavorites: FavoritesInfo[] = [...currentFavorites];
-        
-        if (index !== -1) {             
-            updatedFavorites.splice(index,1);    
-        } else { 
-            updatedFavorites.push({ name });
+        const index = currentFavorites.findIndex(
+          (favorite) => favorite?.name === pokemon?.name
+        );
+        const updatedFavorites: PokemonFavorites[] = [...currentFavorites];
+
+        if (index !== -1) {
+          updatedFavorites.splice(index, 1);
+        } else {
+          updatedFavorites.push(pokemon);
         }
-        
+
         set(() => ({ favorites: updatedFavorites }));
-    },
-    isFavorite: (name: string) => {
+      },
+      isFavorite: (name: string) => {
         const currentFavorites = get().favorites;
-        return currentFavorites.some(favorite => favorite.name === name);
+        return currentFavorites.some((favorite) => favorite?.name === name);
+      },
+      _hasHydrated: false,
+    }),
+    {
+      name: 'favorites-storage',
+      onRehydrateStorage: (state) => {
+        if(state){
+          state._hasHydrated = true;
+        }
+      }
     }
-}));
+  )
+);
+    

@@ -6,14 +6,14 @@ import Input from '@mui/material/Input';
 type Props = {
     placeholder?: string;
     onDebouncedChange: (value: string) => void;
-    delay?: number;
+    fullWidth?: boolean;  
 };
 
 const colorTextDark='#FFFFFF';  
 const colorTextLight= '#000000';
 const debounceDelay = 300;
 
-export default function SearchInput({ placeholder = 'Search by name…', onDebouncedChange}: Props) {
+export default function SearchInput({ placeholder = 'Search by name…', onDebouncedChange, fullWidth = false }: Props) {
   const [raw, setRaw] = useState('');
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -43,9 +43,10 @@ export default function SearchInput({ placeholder = 'Search by name…', onDebou
         },
         "@media (prefers-color-scheme: dark)": {
           color: colorTextDark,
-        },        
+        },
+        width: fullWidth ? '100%' : '50%',      
       }}
-      fullWidth         
+      fullWidth={fullWidth}          
     />
   );
 }

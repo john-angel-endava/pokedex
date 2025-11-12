@@ -8,17 +8,18 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import styles from "./favorite-button.module.css";
 import Stack from '@mui/material/Stack';
 import { useFavoritesStore } from '../../store/useFavoritesStore';
+import { PokemonFavorites } from '@/types/data-types';
 
 interface FavoriteButtonProps {
-  name: string;
+  pokemon: PokemonFavorites;
 };
 
-export default function FavoriteButton({ name }: FavoriteButtonProps) {
+export default function FavoriteButton({ pokemon }: FavoriteButtonProps) {
     const favoritesStore = useFavoritesStore(state => state);
-    const [isFavorite, setIsFavorite] = useState(favoritesStore.isFavorite(name));
+    const [isFavorite, setIsFavorite] = useState(favoritesStore.isFavorite(pokemon?.name));
 
   const onToggleFavorite = (e: React.MouseEvent<HTMLButtonElement>) => {    
-    favoritesStore.toggle(name);
+    favoritesStore.toggle(pokemon);
     e.preventDefault();
     e.stopPropagation(); 
     setIsFavorite(!isFavorite);

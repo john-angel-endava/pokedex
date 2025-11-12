@@ -53,7 +53,9 @@ export default function PokemonDetailsPage() {
                       <h1 style={{ textTransform: "capitalize" }}>
                         {pokemon?.name}
                       </h1>
-                      <FavoriteButton name={pokemon.name} />
+                      <FavoriteButton 
+                        pokemon={{name: pokemon?.name, sprites: pokemon?.sprites, types: pokemon?.types}}
+                      />
                     </Stack>                    
                   </Grid>
                   <Grid size={12}>

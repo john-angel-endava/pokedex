@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from "react";
-import { CircularProgress, Grid, Pagination, PaginationItem, Stack } from "@mui/material";
+import { CircularProgress, Grid, Link, Pagination, PaginationItem, Stack } from "@mui/material";
 import styles from "./page.module.css";
 import { fetchPokemonList } from "@/lib/poke-api";
 import { PokemonDetail, PokemonList } from "@/types/data-types";
@@ -73,16 +73,27 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Stack direction={"column"} spacing={2} alignItems={"center"} sx={{ width: '100%' }}>
+        <Stack
+          direction={"column"}
+          spacing={2}
+          alignItems={"center"}
+          sx={{ width: "100%" }}
+        >
           <h1>Pokédex</h1>
-          <SearchInput            
-            onDebouncedChange={(value) => handleInputChange(value)}
-          />
+          <Stack direction="row" alignItems="center" sx={{ width: '100%' }}>
+            <Stack sx={{ flex: 1 }} />
+            <SearchInput onDebouncedChange={(value) => handleInputChange(value)} />
+            <Stack sx={{ flex: 1, alignItems: 'flex-end' }}>
+              <Link href={`/favorites`} sx={{ textDecoration: 'none', color: 'white', height: '100%' }}>
+                Favorites
+              </Link>
+            </Stack>
+          </Stack>
           <>
-            <Grid container spacing={2} sx={{ width: '100%'}}>
+            <Grid container spacing={2} sx={{ width: "100%" }}>
               {pokemons?.map((pokemon) => (
                 <Grid size={4} key={pokemon.name}>
-                  <PokemonCard {...pokemon} />
+                  <PokemonCard pokemon={pokemon} />
                 </Grid>
               ))}
             </Grid>
