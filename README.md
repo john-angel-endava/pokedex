@@ -171,4 +171,8 @@ async function example() {
 - Persistance of favorites via Zustand
 - Unit tests for Frontend components, Backend service, and Zustand store
 - Storybook stories for Frontend components
+
+## 9. Demo
+
+![](./demo/pokedex-video.gif)
 ---
